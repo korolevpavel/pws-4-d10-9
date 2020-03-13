@@ -9,8 +9,20 @@ TRANSMISSION_CHOICE = [
 class Producer(models.Model):
     name = models.CharField('Производитель', max_length=150)
 
+    class Meta:
+        ordering = ['name']
+
+    def __str__(self):
+        return self.name 
+
 class Color(models.Model):
     name = models.CharField('Производитель', max_length=150)
+
+    class Meta:
+        ordering = ['name']
+
+    def __str__(self):
+        return self.name 
 
 class Car(models.Model):
     producer = models.ForeignKey('Producer', on_delete=models.CASCADE, null=True)
@@ -18,3 +30,9 @@ class Car(models.Model):
     year = models.IntegerField('Год выпуска', null=True)
     transmission = models.SmallIntegerField('Коробка передач', choices=TRANSMISSION_CHOICE, null=True)
     color = models.ForeignKey('Color', on_delete=models.SET_NULL, null=True)
+
+    class Meta:
+        ordering = ['producer']
+
+    def __str__(self):
+        return self.producer.name + ' ' + self.model_of_car + ' ' + self.color.name + ' ('+str(self.year)+')'
