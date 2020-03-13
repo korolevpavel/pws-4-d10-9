@@ -36,3 +36,8 @@ class Car(models.Model):
 
     def __str__(self):
         return self.producer.name + ' ' + self.model_of_car + ' ' + self.color.name + ' ('+str(self.year)+')'
+
+    @classmethod
+    def transmission_choice(cls, transmission_str):
+        return {b: a for a, b in cls._meta.get_field('transmission').choices}.get(
+            transmission_str, 'NULL')
